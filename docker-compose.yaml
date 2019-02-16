@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  #Linux Nginx Mysql PHP: https://hub.docker.com/r/tonisormisson/dev-lemp
+  lemp:
+    image: tonisormisson/dev-lemp
+    restart: always
+    # Volumes for parent of host directories
+    # - vhosts config
+    # - mysql storage
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./html:/var/www/html
+    ports: 
+      - '8000:80'
+      - '8443:443'
+      - '3306:3306'
+    networks:
+      - lemp-network
+  #phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - lemp
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: lemp
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - lemp-network
+
+networks:
+  lemp-network:
+volumes:
+  db_data:
