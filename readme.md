@@ -9,6 +9,9 @@ docker-compose up -d
 ## phpMyAdmin
 Visit [http://localhost:8080](http://localhost:8080) to access phpMyAdmin to easily edit the database. The database volume is persistent.
 
+## Database Host
+This is the name of the mysql service: `mysql` - instead of `localhost`
+
 ## HTML
 HTML is editable in a persistent volume, in the **html** directory.
 
